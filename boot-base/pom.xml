@@ -8,8 +8,7 @@
 	<version>1.0.0-SNAPSHOT</version>
 	<packaging>jar</packaging>
 
-	<name>Chapter1</name>
-	<description>Demo project for Spring Boot</description>
+	<name>boot-base</name>
 
 	<parent>
 		<groupId>org.springframework.boot</groupId>
