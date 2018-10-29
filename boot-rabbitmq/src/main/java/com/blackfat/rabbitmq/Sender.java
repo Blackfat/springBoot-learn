@@ -19,4 +19,16 @@ public class Sender {
         System.out.println("Sender : " + context);
         this.rabbitTemplate.convertAndSend("hello", context);
     }
+
+    public void send1(){
+       String context = "message1";
+        System.out.println("Sender : " + context);
+        this.rabbitTemplate.convertAndSend("exchange", "topic.message",context);
+    }
+
+    public void send2(){
+        String context = "message2";
+        System.out.println("Sender : " + context);
+        this.rabbitTemplate.convertAndSend("exchange", "topic.message2",context);
+    }
 }

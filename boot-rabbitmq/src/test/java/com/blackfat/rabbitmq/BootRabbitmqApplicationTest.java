@@ -24,5 +24,12 @@ public class BootRabbitmqApplicationTest {
         sender.send();
     }
 
+    @Test
+    public void topic(){
+        sender.send1();
+
+        sender.send2();
+    }
+
 
 }
