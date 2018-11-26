@@ -12,7 +12,7 @@ import javax.crypto.spec.SecretKeySpec;
  */
 public class AesEncryptUtils {
 
-    private static final String KEY = "abcdef0123456789";
+    private static final String KEY = "abcdef0123456789";   // 密钥必须是16位的
     private static final String ALGORITHMSTR = "AES/ECB/PKCS5Padding";//  加密算法/操作模式/填充模式
 
     public static String base64Encode(byte[] bytes) {
