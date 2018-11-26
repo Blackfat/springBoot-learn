@@ -1,7 +1,9 @@
 package com.blackfat;
 
+import com.blackfat.encrypt.annotion.EnableEncrypt;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
+import springfox.documentation.swagger2.annotations.EnableSwagger2;
 
 
 /*
@@ -10,6 +12,7 @@ import org.springframework.boot.autoconfigure.SpringBootApplication;
 * @ComponentScan 定义一个basePackage属性,默认使用根包(main方法所在的包) 注解搜索beans，并结合 @Autowired 构造器注入
 **/
 @SpringBootApplication
+@EnableEncrypt
 public class Application {
 
 	public static void main(String[] args) {
