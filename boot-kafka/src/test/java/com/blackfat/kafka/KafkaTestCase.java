@@ -8,6 +8,7 @@ import org.junit.Test;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
+import java.time.Duration;
 import java.util.*;
 import java.util.concurrent.ExecutionException;
 
@@ -24,7 +25,7 @@ public class KafkaTestCase {
     public void producerTest(){
         Properties props = new Properties();
         // 连接kafka集群所需要的broker地址清单，并非需要设置全部的broker地址
-        props.put("bootstrap.servers", "101.132.177.27:9092");
+        props.put("bootstrap.servers", "192.168.15.38:9092");
         props.put("acks", "all");
         props.put("retries", 0);
         // ProductBatch可以复用内存区域的大小
@@ -38,9 +39,9 @@ public class KafkaTestCase {
         props.put(ProducerConfig.VALUE_SERIALIZER_CLASS_CONFIG, StringSerializer.class.getName());
 
         Producer<String, String> producer = new KafkaProducer<>(props);
-        for(int i = 0; i < 100; i++)
+        for(int i = 0; i < 10; i++)
             try {
-                RecordMetadata recordMetadata = producer.send(new ProducerRecord<String, String>("my-topic", Integer.toString(i), Integer.toString(i))).get();
+                RecordMetadata recordMetadata = producer.send(new ProducerRecord<String, String>("blackfat", Integer.toString(i), Integer.toString(i))).get();
                 logger.info("msg offset={} partition={} checksum={} timestamp={} topic={}",
                         recordMetadata.offset(),recordMetadata.partition(),recordMetadata.checksum(),recordMetadata.timestamp(),recordMetadata.topic());
             } catch (InterruptedException e) {
@@ -56,12 +57,12 @@ public class KafkaTestCase {
     @Test
     public void consumerTest(){
         Properties props = new Properties();
-        props.put("bootstrap.servers", "101.132.177.27:9092");
+        props.put("bootstrap.servers", "192.168.15.38:9092");
         props.put("group.id", "test");
         // 消费位移的提交
-        props.put("enable.auto.commit", "false");
+        props.put("enable.auto.commit", "true");
         // 消费位移的提交周期
-        // props.put("auto.commit.interval.ms", "1000");
+         props.put("auto.commit.interval.ms", "1000");
         props.put("session.timeout.ms", "30000");
         props.put("key.deserializer", "org.apache.kafka.common.serialization.StringDeserializer");
         props.put("value.deserializer", "org.apache.kafka.common.serialization.StringDeserializer");
@@ -73,33 +74,20 @@ public class KafkaTestCase {
         *消费者集合中，前m个消费者能够分配到n+1个分区，而剩余的消费者只能分配到n个分区。
         *
         * */
-        props.put("partition.assignment.strategy", "org.apache.kafka.clients.consumer.RangeAssignor");
+        //props.put("partition.assignment.strategy", "org.apache.kafka.clients.consumer.RangeAssignor");
         //props.put(ConsumerConfig.PARTITION_ASSIGNMENT_STRATEGY_CONFIG, RangeAssignor.class.getName());
         KafkaConsumer<String, String> consumer = new KafkaConsumer<>(props);
-        consumer.subscribe(Arrays.asList("my-topic"));
-        List<ConsumerRecord<String, String>> buffer = new ArrayList<>();
+        consumer.subscribe(Arrays.asList("blackfat"));
+//        TopicPartition topicPartition = new TopicPartition("blackfat", 0);
+//        consumer.assign(Arrays.asList(topicPartition));
         while (true) {
-            ConsumerRecords<String, String> records = consumer.poll(10);
+            ConsumerRecords<String, String> records = consumer.poll(Duration.ofMillis(1000));
             for (ConsumerRecord<String, String> record : records){
                 logger.info("offset = {},partition={}, key = {}, value = {}", record.offset(),record.partition(), record.key(), record.value());
-                buffer.add(record);
-            }
-            if(buffer.size() > 10){
-                logger.info("写入数据库成功，size={}",buffer.size());
-                consumer.commitAsync(new OffsetCommitCallback(){
-                    @Override
-                    public void onComplete(Map<TopicPartition, OffsetAndMetadata> offsets, Exception exception) {
-                        if(exception == null){
-                            System.out.println(offsets);
-                        }else{
-                            System.out.println(String.format("fail to commit offset %s",offsets));
-                        }
-                    }
-                });
-                buffer.clear();
             }
 
         }
+//        System.err.println(consumer.position(topicPartition));
     }
 
 
