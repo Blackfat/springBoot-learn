@@ -1,0 +1,3 @@
+# org.springframework.boot.autoconfigure.AutoConfigurationImportListener 配置
+org.springframework.boot.autoconfigure.AutoConfigurationImportListener=\
+com.blackfat.boot2.listener.DefaultAutoConfigurationImportListener
