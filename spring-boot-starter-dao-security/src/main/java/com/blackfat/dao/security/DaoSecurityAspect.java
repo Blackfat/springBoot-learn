@@ -200,7 +200,7 @@ public class DaoSecurityAspect {
 
     private int getBytesLength(String content) {
         try {
-            int len = content.getBytes("utf-8").length;
+            int len = content.getBytes(STRING_ENCODE).length;
             return len;
         } catch (Throwable var3) {
             var3.printStackTrace();

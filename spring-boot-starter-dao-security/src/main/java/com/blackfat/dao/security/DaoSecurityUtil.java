@@ -92,11 +92,18 @@ public class DaoSecurityUtil {
         }
     }
 
+    /**
+     * 加密后的字符长度 = length(content)*4/3+2+2
+     * @param key
+     * @param content
+     * @return
+     */
     public static String encrypt(String key, String content) {
         if (isSafe(content)) {
             return content;
         } else {
             try {
+                // Base64将三个字节转化成四个字节，因此Base64编码后的文本，会比原文本大出三分之一左右
                 String cipher = Base64.encodeBase64String(getEncryptCipher(key).doFinal(content.getBytes("utf-8")));
                 return cipher + sign(cipher);
             } catch (Exception e) {
@@ -293,5 +300,10 @@ public class DaoSecurityUtil {
 
         byte[] crcBytes = new byte[]{(byte)(255 & crc), (byte)(255 & crc >> 8)};
         return crcBytes;
+    }
+
+    public static void main(String[] args) {
+        String decrypty = decrypt("b5766a1a18da4ee6b5a0fda694b4de92","wVIjUEo8BQwepXw=qCQA");
+        System.out.println(decrypty);
     }
 }
