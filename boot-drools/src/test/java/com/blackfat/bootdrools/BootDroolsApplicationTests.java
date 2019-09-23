@@ -1,5 +1,6 @@
 package com.blackfat.bootdrools;
 
+import com.blackfat.bootdrools.entity.Product;
 import com.blackfat.bootdrools.entity.User;
 import org.drools.core.base.RuleNameEndsWithAgendaFilter;
 import org.junit.Test;
@@ -57,6 +58,17 @@ public class BootDroolsApplicationTests {
         User user=new User("张三",18);
         kieSession.insert(user);
         kieSession.fireAllRules(new RuleNameEndsWithAgendaFilter("matches"));
+    }
+
+    @Test
+    public void testProduct(){
+        Product fan = new Product("电扇", 280);
+        Product washer = new Product("洗衣机",2200);
+        Product phone = new Product("手机", 998);
+        kieSession.insert(fan);
+        kieSession.insert(washer);
+        kieSession.insert(phone);
+        kieSession.fireAllRules();
     }
 
 }
