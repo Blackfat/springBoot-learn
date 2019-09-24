@@ -3,8 +3,10 @@ package com.blackfat.bootdrools;
 import com.blackfat.bootdrools.entity.Product;
 import com.blackfat.bootdrools.entity.User;
 import org.drools.core.base.RuleNameEndsWithAgendaFilter;
+import org.drools.core.event.DefaultAgendaEventListener;
 import org.junit.Test;
 import org.junit.runner.RunWith;
+import org.kie.api.event.rule.AfterMatchFiredEvent;
 import org.kie.api.runtime.KieSession;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
@@ -70,5 +72,23 @@ public class BootDroolsApplicationTests {
         kieSession.insert(phone);
         kieSession.fireAllRules();
     }
+
+
+    @Test
+    public void testAgendaEventListener(){
+        kieSession.addEventListener(new DefaultAgendaEventListener(){
+            @Override
+            public void afterMatchFired(AfterMatchFiredEvent event) {
+                super.afterMatchFired(event);
+                System.out.println("命中:"+event.getMatch().getRule().getName());
+            }
+        });
+        Product fan = new Product("电扇", 280);
+        kieSession.insert(fan);
+        kieSession.fireAllRules();
+    }
+
+
+
 
 }
