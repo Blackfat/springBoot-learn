@@ -53,7 +53,7 @@ public class DaoSecurityUtil {
 
 
     private static Cipher getEncryptCipher(String key) {
-        Cipher cipher = (Cipher)encryptCipherPoolMap.get(key);
+        Cipher cipher = (Cipher) encryptCipherPoolMap.get(key);
         if (cipher != null) {
             return cipher;
         } else {
@@ -73,7 +73,7 @@ public class DaoSecurityUtil {
     }
 
     private static Cipher getDecryptCipher(String key) {
-        Cipher cipher = (Cipher)decryptCipherPoolMap.get(key);
+        Cipher cipher = (Cipher) decryptCipherPoolMap.get(key);
         if (cipher != null) {
             return cipher;
         } else {
@@ -94,6 +94,7 @@ public class DaoSecurityUtil {
 
     /**
      * 加密后的字符长度 = length(content)*4/3+2+2
+     *
      * @param key
      * @param content
      * @return
@@ -188,7 +189,7 @@ public class DaoSecurityUtil {
     }
 
     private static String sign(String content) {
-        byte[] lens = new byte[]{(byte)(content.length() % 16 << 2 | 0)};
+        byte[] lens = new byte[]{(byte) (content.length() % 16 << 2 | 0)};
 
         try {
             return Base64.encodeBase64String(jointBytes(makeCRC(content.getBytes("utf-8")), lens));
@@ -206,8 +207,8 @@ public class DaoSecurityUtil {
     private static byte[] long2Byte(Long x) {
         byte[] bb = new byte[8];
 
-        for(int i = 0; i < 8; ++i) {
-            bb[i] = (byte)((int)(x >> 8 * i & 255L));
+        for (int i = 0; i < 8; ++i) {
+            bb[i] = (byte) ((int) (x >> 8 * i & 255L));
         }
 
         return bb;
@@ -216,8 +217,8 @@ public class DaoSecurityUtil {
     private static Long byte2Long(byte[] bb) {
         long value = 0L;
 
-        for(int i = 0; i < 8; ++i) {
-            value |= (long)(bb[i] & 255) << 8 * i;
+        for (int i = 0; i < 8; ++i) {
+            value |= (long) (bb[i] & 255) << 8 * i;
         }
 
         return value;
@@ -239,7 +240,7 @@ public class DaoSecurityUtil {
     private static byte[] revertBytes(byte[] x) {
         byte[] bs = new byte[x.length];
 
-        for(int i = 0; i < bs.length; ++i) {
+        for (int i = 0; i < bs.length; ++i) {
             bs[i] = x[bs.length - i - 1];
         }
 
@@ -274,21 +275,21 @@ public class DaoSecurityUtil {
         byte[] buf = new byte[data.length];
 
         int len;
-        for(len = 0; len < data.length; ++len) {
+        for (len = 0; len < data.length; ++len) {
             buf[len] = data[len];
         }
 
         len = buf.length;
         int crc = 65535;
 
-        for(int pos = 0; pos < len; ++pos) {
+        for (int pos = 0; pos < len; ++pos) {
             if (buf[pos] < 0) {
                 crc ^= buf[pos] + 256;
             } else {
                 crc ^= buf[pos];
             }
 
-            for(int i = 8; i != 0; --i) {
+            for (int i = 8; i != 0; --i) {
                 if ((crc & 1) != 0) {
                     crc >>= 1;
                     crc ^= 40961;
@@ -298,12 +299,12 @@ public class DaoSecurityUtil {
             }
         }
 
-        byte[] crcBytes = new byte[]{(byte)(255 & crc), (byte)(255 & crc >> 8)};
+        byte[] crcBytes = new byte[]{(byte) (255 & crc), (byte) (255 & crc >> 8)};
         return crcBytes;
     }
 
     public static void main(String[] args) {
-        String decrypty = decrypt("b5766a1a18da4ee6b5a0fda694b4de92","wVIjUEo8BQwepXw=qCQA");
+        String decrypty = decrypt("b5766a1a18da4ee6b5a0fda694b4de92", "wVIjUEo8BQwepXw=qCQA");
         System.out.println(decrypty);
     }
 }

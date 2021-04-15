@@ -19,7 +19,7 @@ public class APIVersionCondition implements RequestCondition<APIVersionCondition
     private String headerKey;
 
 
-    public APIVersionCondition(String apiVersion, String headerKey){
+    public APIVersionCondition(String apiVersion, String headerKey) {
         this.apiVersion = apiVersion;
         this.headerKey = headerKey;
     }

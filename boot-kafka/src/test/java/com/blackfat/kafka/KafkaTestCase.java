@@ -22,7 +22,7 @@ public class KafkaTestCase {
 
 
     @Test
-    public void producerTest(){
+    public void producerTest() {
         Properties props = new Properties();
         // 连接kafka集群所需要的broker地址清单，并非需要设置全部的broker地址
         props.put("bootstrap.servers", "192.168.15.38:9092");
@@ -39,11 +39,11 @@ public class KafkaTestCase {
         props.put(ProducerConfig.VALUE_SERIALIZER_CLASS_CONFIG, StringSerializer.class.getName());
 
         Producer<String, String> producer = new KafkaProducer<>(props);
-        for(int i = 0; i < 10; i++)
+        for (int i = 0; i < 10; i++)
             try {
                 RecordMetadata recordMetadata = producer.send(new ProducerRecord<String, String>("blackfat", Integer.toString(i), Integer.toString(i))).get();
                 logger.info("msg offset={} partition={} checksum={} timestamp={} topic={}",
-                        recordMetadata.offset(),recordMetadata.partition(),recordMetadata.checksum(),recordMetadata.timestamp(),recordMetadata.topic());
+                        recordMetadata.offset(), recordMetadata.partition(), recordMetadata.checksum(), recordMetadata.timestamp(), recordMetadata.topic());
             } catch (InterruptedException e) {
                 e.printStackTrace();
             } catch (ExecutionException e) {
@@ -55,25 +55,25 @@ public class KafkaTestCase {
 
 
     @Test
-    public void consumerTest(){
+    public void consumerTest() {
         Properties props = new Properties();
         props.put("bootstrap.servers", "192.168.15.38:9092");
         props.put("group.id", "test");
         // 消费位移的提交
         props.put("enable.auto.commit", "true");
         // 消费位移的提交周期
-         props.put("auto.commit.interval.ms", "1000");
+        props.put("auto.commit.interval.ms", "1000");
         props.put("session.timeout.ms", "30000");
         props.put("key.deserializer", "org.apache.kafka.common.serialization.StringDeserializer");
         props.put("value.deserializer", "org.apache.kafka.common.serialization.StringDeserializer");
         /*
-        *topic下的所有有效分区平铺，例如P0, P1, P2, P3... ...
-        *消费者按照字典排序，例如C0, C1, C2
-        *区数除以消费者数，得到n
-        *分区数对消费者数取余，得到m
-        *消费者集合中，前m个消费者能够分配到n+1个分区，而剩余的消费者只能分配到n个分区。
-        *
-        * */
+         *topic下的所有有效分区平铺，例如P0, P1, P2, P3... ...
+         *消费者按照字典排序，例如C0, C1, C2
+         *区数除以消费者数，得到n
+         *分区数对消费者数取余，得到m
+         *消费者集合中，前m个消费者能够分配到n+1个分区，而剩余的消费者只能分配到n个分区。
+         *
+         * */
         //props.put("partition.assignment.strategy", "org.apache.kafka.clients.consumer.RangeAssignor");
         //props.put(ConsumerConfig.PARTITION_ASSIGNMENT_STRATEGY_CONFIG, RangeAssignor.class.getName());
         KafkaConsumer<String, String> consumer = new KafkaConsumer<>(props);
@@ -82,8 +82,8 @@ public class KafkaTestCase {
 //        consumer.assign(Arrays.asList(topicPartition));
         while (true) {
             ConsumerRecords<String, String> records = consumer.poll(Duration.ofMillis(1000));
-            for (ConsumerRecord<String, String> record : records){
-                logger.info("offset = {},partition={}, key = {}, value = {}", record.offset(),record.partition(), record.key(), record.value());
+            for (ConsumerRecord<String, String> record : records) {
+                logger.info("offset = {},partition={}, key = {}, value = {}", record.offset(), record.partition(), record.key(), record.value());
             }
 
         }
@@ -92,7 +92,7 @@ public class KafkaTestCase {
 
 
     @Test
-    public void consumerSeekTest(){
+    public void consumerSeekTest() {
         Properties props = new Properties();
         props.put("bootstrap.servers", "101.132.177.27:9092");
         props.put("group.id", "test");
@@ -121,12 +121,12 @@ public class KafkaTestCase {
         });
 
         Set<TopicPartition> assignment = new HashSet<>();
-        while(assignment.size() == 0){
+        while (assignment.size() == 0) {
             consumer.poll(1000);
             assignment = consumer.assignment();
         }
 
-        for(TopicPartition tp: assignment){
+        for (TopicPartition tp : assignment) {
             // seek只能重启消费者已经分配到的分区位置
             consumer.seek(tp, 10);
         }

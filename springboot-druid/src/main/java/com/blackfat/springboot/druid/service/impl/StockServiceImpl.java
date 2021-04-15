@@ -27,7 +27,7 @@ public class StockServiceImpl implements StockService {
 
     @Override
     public Stock getStockById(int id) {
-        return stockMapper.selectByPrimaryKey(id) ;
+        return stockMapper.selectByPrimaryKey(id);
     }
 
     @Override

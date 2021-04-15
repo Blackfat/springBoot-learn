@@ -16,18 +16,21 @@ import java.lang.annotation.*;
 public @interface DaoSecurity {
     /**
      * 需要加密解密的类
+     *
      * @return
      */
     Class value();
 
     /**
      * 需要加密的字段
+     *
      * @return
      */
     DaoSecurityParam[] params() default {};
 
     /**
      * 密钥所在的字段
+     *
      * @return
      */
     String keyName();

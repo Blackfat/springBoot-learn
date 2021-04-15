@@ -13,7 +13,7 @@ import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
  * @create 2018/9/19-15:19
  */
 @RunWith(SpringJUnit4ClassRunner.class)
-@SpringBootTest(classes= BootRabbitmqApplication.class)
+@SpringBootTest(classes = BootRabbitmqApplication.class)
 public class BootRabbitmqApplicationTest {
 
     @Autowired
@@ -25,7 +25,7 @@ public class BootRabbitmqApplicationTest {
     }
 
     @Test
-    public void topic(){
+    public void topic() {
         sender.send1();
 
         sender.send2();

@@ -21,6 +21,7 @@ public @interface EnableServer {
 
     /**
      * 设置服务器类型
+     *
      * @return non-null
      */
     Server.Type type();

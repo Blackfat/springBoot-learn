@@ -25,7 +25,7 @@ public class OrderServiceImpl implements OrderService {
 
 
     @Override
-    @Transactional(rollbackFor=Exception.class)
+    @Transactional(rollbackFor = Exception.class)
     public int createOptimisticOrder(int sid) throws Exception {
         //校验库存
         Stock stock = checkStock(sid);
@@ -50,8 +50,8 @@ public class OrderServiceImpl implements OrderService {
 
     private void saleStockOptimistic(Stock stock) {
         int count = stockService.updateStockByOptimistic(stock);
-        if (count == 0){
-            throw new RuntimeException("并发更新库存失败") ;
+        if (count == 0) {
+            throw new RuntimeException("并发更新库存失败");
         }
     }
 

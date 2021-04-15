@@ -10,7 +10,7 @@ import org.springframework.stereotype.Component;
 
 /**
  * @author wangfeiyang
- * @desc    加解密自动配置
+ * @desc 加解密自动配置
  * @create 2018/11/26-14:48
  */
 @Configuration
@@ -23,6 +23,7 @@ public class EncryptAutoConfiguration {
 
     /**
      * 配置请求解密
+     *
      * @return
      */
     @Bean
@@ -32,6 +33,7 @@ public class EncryptAutoConfiguration {
 
     /**
      * 配置请求加密
+     *
      * @return
      */
     @Bean

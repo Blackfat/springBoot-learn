@@ -40,7 +40,7 @@ public class TopicConsumer {
         }
 
         System.out.println("Consumer Wating Receive Message");
-        Consumer consumer = new DefaultConsumer(channel){
+        Consumer consumer = new DefaultConsumer(channel) {
             @Override
             public void handleDelivery(String consumerTag, Envelope envelope, AMQP.BasicProperties properties, byte[] body) throws IOException {
                 String message = new String(body, "UTF-8");
@@ -51,7 +51,6 @@ public class TopicConsumer {
         channel.basicConsume(queueName, true, consumer);
 
         Thread.sleep(1000000);
-
 
 
     }
@@ -84,7 +83,7 @@ public class TopicConsumer {
         }
 
         System.out.println("Consumer Wating Receive Message");
-        Consumer consumer = new DefaultConsumer(channel){
+        Consumer consumer = new DefaultConsumer(channel) {
             @Override
             public void handleDelivery(String consumerTag, Envelope envelope, AMQP.BasicProperties properties, byte[] body) throws IOException {
                 String message = new String(body, "UTF-8");
@@ -95,7 +94,6 @@ public class TopicConsumer {
         channel.basicConsume(queueName, true, consumer);
 
         Thread.sleep(1000000);
-
 
 
     }

@@ -20,5 +20,7 @@ public class APIVersoinController {
 
     @GetMapping(value = "/api/user")
     @APIVersion("v4")
-    public int right4() { return 4;}
+    public int right4() {
+        return 4;
+    }
 }

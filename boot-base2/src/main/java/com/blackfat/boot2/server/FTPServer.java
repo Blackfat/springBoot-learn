@@ -9,7 +9,7 @@ import org.springframework.stereotype.Component;
  * @since 1.0-SNAPSHOT
  */
 @Component// 根据 ImportSelector 的契约，请确保是实现为 Spring 组件
-public class FTPServer implements  Server {
+public class FTPServer implements Server {
 
     @Override
     public void start() {

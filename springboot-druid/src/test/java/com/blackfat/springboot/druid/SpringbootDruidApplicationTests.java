@@ -15,22 +15,22 @@ import javax.sql.DataSource;
 @SpringBootTest
 public class SpringbootDruidApplicationTests {
 
-	@Autowired
-	StockMapper stockMapper;
+    @Autowired
+    StockMapper stockMapper;
 
-	@Autowired
-	OrderService orderService;
+    @Autowired
+    OrderService orderService;
 
 
-	@Test
-	public void stockMapperTest(){
-		Stock stock = stockMapper.selectByPrimaryKey(1);
-		System.out.println(stock.toString());
-	}
+    @Test
+    public void stockMapperTest() {
+        Stock stock = stockMapper.selectByPrimaryKey(1);
+        System.out.println(stock.toString());
+    }
 
-	@Test
-	public void orderServiceTest() throws Exception {
-	    orderService.createOptimisticOrder(1);
+    @Test
+    public void orderServiceTest() throws Exception {
+        orderService.createOptimisticOrder(1);
     }
 
 }

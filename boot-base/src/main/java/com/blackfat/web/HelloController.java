@@ -19,14 +19,14 @@ public class HelloController {
 
     @RequestMapping(value = "/hello", method = RequestMethod.GET)
     @Encrypt
-    public String index(){
+    public String index() {
         return "Hello World";
     }
 
 
     @RequestMapping(value = "/index", method = RequestMethod.POST)
     @Decrypt
-    public String user(@RequestBody User user){
+    public String user(@RequestBody User user) {
         System.out.println(user.toString());
         return user.toString();
     }

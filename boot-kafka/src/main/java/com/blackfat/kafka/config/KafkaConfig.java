@@ -16,7 +16,7 @@ import java.util.Properties;
 public class KafkaConfig {
 
     @Bean
-    public Producer<String ,String> build(){
+    public Producer<String, String> build() {
         Properties properties = new Properties();
 
         Producer<String, String> producer = new KafkaProducer<String, String>(properties);

@@ -26,10 +26,12 @@ public class TestAspectWithOrder10 {
     public void before(JoinPoint joinPoint) throws Throwable {
         log.info("TestAspectWithOrder10 @Before");
     }
+
     @After("execution(* com.blackfat.debug.TestAopController.*(..))")
     public void after(JoinPoint joinPoint) throws Throwable {
         log.info("TestAspectWithOrder10 @After");
     }
+
     @Around("execution(* com.blackfat.debug.TestAopController.*(..))")
     public Object around(ProceedingJoinPoint pjp) throws Throwable {
         log.info("TestAspectWithOrder10 @Around before");

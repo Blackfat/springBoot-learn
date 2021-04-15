@@ -18,11 +18,9 @@ import org.springframework.web.servlet.mvc.method.annotation.ResponseBodyAdvice;
 
 /**
  * @author wangfeiyang
- * @desc
- *  请求响应处理类<br>
- *
+ * @desc 请求响应处理类<br>
+ * <p>
  * 对加了@Encrypt的方法的数据进行加密操作
- *
  * @create 2018/11/26-14:55
  */
 @ControllerAdvice
@@ -65,7 +63,7 @@ public class EncryptResponseBodyAdvice implements ResponseBodyAdvice<Object> {
                 if (!StringUtils.hasText(encryptProperties.getKey())) {
                     throw new NullPointerException("请配置spring.encrypt.key");
                 }
-                String result =  AesEncryptUtils.aesEncrypt(content, encryptProperties.getKey());
+                String result = AesEncryptUtils.aesEncrypt(content, encryptProperties.getKey());
                 long endTime = System.currentTimeMillis();
                 logger.debug("Encrypt Time:" + (endTime - startTime));
                 return result;

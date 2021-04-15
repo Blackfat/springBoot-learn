@@ -11,11 +11,11 @@ import org.springframework.boot.builder.SpringApplicationBuilder;
 @EnableAutoConfiguration(exclude = SpringApplicationAdminJmxAutoConfiguration.class)
 public class EnableAutoConfigurationBootstrap {
 
-	public static void main(String[] args) {
-		new SpringApplicationBuilder(EnableAutoConfigurationBootstrap.class)
-				.web(WebApplicationType.NONE) // 非 Web 应用
-				.run(args)                    // 运行
-				.close();
-	}
+    public static void main(String[] args) {
+        new SpringApplicationBuilder(EnableAutoConfigurationBootstrap.class)
+                .web(WebApplicationType.NONE) // 非 Web 应用
+                .run(args)                    // 运行
+                .close();
+    }
 
 }

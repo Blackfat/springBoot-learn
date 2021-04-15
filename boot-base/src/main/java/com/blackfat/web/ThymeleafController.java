@@ -13,12 +13,11 @@ import org.springframework.web.bind.annotation.RequestMethod;
 @Controller
 public class ThymeleafController {
 
-    @RequestMapping(value="/", method = RequestMethod.GET)
-    public String index(Model model){
-        model.addAttribute("host","https://www.baidu.com");
+    @RequestMapping(value = "/", method = RequestMethod.GET)
+    public String index(Model model) {
+        model.addAttribute("host", "https://www.baidu.com");
         return "index";
     }
-
 
 
 }

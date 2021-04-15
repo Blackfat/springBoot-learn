@@ -46,12 +46,12 @@ public class DaoSecurityAspect {
         return this.getObject(joinPoint, false);
     }
 
-    private Object getObject(ProceedingJoinPoint joinPoint, Boolean isEncrypt) throws Throwable{
+    private Object getObject(ProceedingJoinPoint joinPoint, Boolean isEncrypt) throws Throwable {
         Class clazz = joinPoint.getTarget().getClass();
-        if(!clazz.isAnnotationPresent(DaoSecurity.class)){
+        if (!clazz.isAnnotationPresent(DaoSecurity.class)) {
             return joinPoint.proceed(joinPoint.getArgs());
-        }else {
-            DaoSecurity daoSecurity = (DaoSecurity)joinPoint.getTarget().getClass().getAnnotation(DaoSecurity.class);
+        } else {
+            DaoSecurity daoSecurity = (DaoSecurity) joinPoint.getTarget().getClass().getAnnotation(DaoSecurity.class);
             Class modelCls = daoSecurity.value();
             String keyName = daoSecurity.keyName();
             DaoSecurityParam[] params = daoSecurity.params();
@@ -59,7 +59,7 @@ public class DaoSecurityAspect {
                 Object[] args = joinPoint.getArgs();
                 Object[] argsCopy = args;
 
-                for(int i = 0; i < argsCopy.length; ++i) {
+                for (int i = 0; i < argsCopy.length; ++i) {
                     Object arg = argsCopy[i];
                     this.encrypt(arg, modelCls, keyName, params, true);
                 }
@@ -79,18 +79,18 @@ public class DaoSecurityAspect {
         Iterator iterator;
         Object obj;
         if (Collection.class.isInstance(object)) {
-            Collection collection = (Collection)object;
+            Collection collection = (Collection) object;
             iterator = collection.iterator();
 
-            while(iterator.hasNext()) {
+            while (iterator.hasNext()) {
                 obj = iterator.next();
                 this.encrypt(obj, cls, securityKeyParam, daoSecurityParams, isEncrypt);
             }
         } else if (Map.class.isInstance(object)) {
-            Map map = (Map)object;
+            Map map = (Map) object;
             iterator = map.values().iterator();
 
-            while(iterator.hasNext()) {
+            while (iterator.hasNext()) {
                 obj = iterator.next();
                 this.encrypt(obj, cls, securityKeyParam, daoSecurityParams, isEncrypt);
             }
@@ -107,27 +107,27 @@ public class DaoSecurityAspect {
             Field[] var10 = declaredFields;
             int var11 = declaredFields.length;
 
-            for(int var12 = 0; var12 < var11; ++var12) {
+            for (int var12 = 0; var12 < var11; ++var12) {
                 Field declaredField = var10[var12];
                 declaredField.setAccessible(true);
                 Object fieldObj = declaredField.get(object);
                 Iterator var16;
                 Object mapObj;
                 if (Collection.class.isInstance(fieldObj)) {
-                    Collection collection = (Collection)fieldObj;
+                    Collection collection = (Collection) fieldObj;
                     var16 = collection.iterator();
 
-                    while(var16.hasNext()) {
+                    while (var16.hasNext()) {
                         mapObj = var16.next();
                         if (cls.isInstance(mapObj)) {
                             this.encrypt(mapObj, cls, securityKeyParam, daoSecurityParams, isEncrypt);
                         }
                     }
                 } else if (Map.class.isInstance(fieldObj)) {
-                    Map map = (Map)fieldObj;
+                    Map map = (Map) fieldObj;
                     var16 = map.values().iterator();
 
-                    while(var16.hasNext()) {
+                    while (var16.hasNext()) {
                         mapObj = var16.next();
                         if (cls.isInstance(mapObj)) {
                             this.encrypt(mapObj, cls, securityKeyParam, daoSecurityParams, isEncrypt);
@@ -151,7 +151,7 @@ public class DaoSecurityAspect {
     private void encryptParam(Object object, Field field, Object obj, String key, DaoSecurityParam param, Boolean isEncrypt) throws Throwable {
         Object newObj = null;
         if (String.class.isInstance(obj)) {
-            String objStr = (String)obj;
+            String objStr = (String) obj;
             if (objStr.length() > 0) {
                 if (isEncrypt) {
                     if (param.maxLength() > 0 && !DaoSecurityUtil.isSafe(objStr) && this.getBytesLength(objStr) > param.maxLength()) {
@@ -170,7 +170,7 @@ public class DaoSecurityAspect {
                 }
             }
         } else if (Long.class.isInstance(obj)) {
-            Long objLong = (Long)obj;
+            Long objLong = (Long) obj;
             if (isEncrypt) {
                 newObj = DaoSecurityUtil.encrypt(key, objLong);
             } else {
@@ -188,7 +188,7 @@ public class DaoSecurityAspect {
         DaoSecurityParam[] var3 = daoSecurityParams;
         int var4 = daoSecurityParams.length;
 
-        for(int var5 = 0; var5 < var4; ++var5) {
+        for (int var5 = 0; var5 < var4; ++var5) {
             DaoSecurityParam daoSecurityParam = var3[var5];
             if (daoSecurityParam.value().equals(param)) {
                 return daoSecurityParam;

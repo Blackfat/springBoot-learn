@@ -6,10 +6,9 @@ import org.springframework.context.annotation.Import;
 import java.lang.annotation.*;
 
 
-
 /*
-* 启用加密Starter
-* */
+ * 启用加密Starter
+ * */
 @Target(ElementType.TYPE)
 @Retention(RetentionPolicy.RUNTIME)
 @Documented

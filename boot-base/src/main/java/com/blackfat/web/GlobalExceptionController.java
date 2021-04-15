@@ -13,8 +13,8 @@ import org.springframework.web.bind.annotation.RequestMethod;
 @Controller
 public class GlobalExceptionController {
 
-    @RequestMapping(value="/exception",method = RequestMethod.GET)
-    public String exceptionHandler() throws Exception{
+    @RequestMapping(value = "/exception", method = RequestMethod.GET)
+    public String exceptionHandler() throws Exception {
         throw new Exception("发生异常！");
     }
 }

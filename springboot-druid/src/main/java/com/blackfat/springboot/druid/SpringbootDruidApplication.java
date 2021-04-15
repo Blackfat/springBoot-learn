@@ -8,8 +8,8 @@ import org.springframework.boot.autoconfigure.SpringBootApplication;
 @MapperScan("com.blackfat.springboot.druid.dao")
 public class SpringbootDruidApplication {
 
-	public static void main(String[] args) {
-		SpringApplication.run(SpringbootDruidApplication.class, args);
-	}
+    public static void main(String[] args) {
+        SpringApplication.run(SpringbootDruidApplication.class, args);
+    }
 
 }

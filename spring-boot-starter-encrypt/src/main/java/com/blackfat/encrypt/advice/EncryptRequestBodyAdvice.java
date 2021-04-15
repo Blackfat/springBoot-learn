@@ -20,11 +20,10 @@ import java.lang.reflect.Type;
 
 /**
  * @author wangfeiyang
- * @desc
- *  请求数据接收处理类<br>
- *
+ * @desc 请求数据接收处理类<br>
+ * <p>
  * 对加了@Decrypt的方法的数据进行解密操作<br>
- *
+ * <p>
  * 只对@RequestBody参数有效
  * @create 2018/11/26-14:55
  */
@@ -51,7 +50,7 @@ public class EncryptRequestBodyAdvice implements RequestBodyAdvice {
     @Override
     public HttpInputMessage beforeBodyRead(HttpInputMessage inputMessage, MethodParameter parameter, Type targetType,
                                            Class<? extends HttpMessageConverter<?>> converterType) throws IOException {
-        if(parameter.getMethod().isAnnotationPresent(Decrypt.class) && !encryptProperties.isDebug()){
+        if (parameter.getMethod().isAnnotationPresent(Decrypt.class) && !encryptProperties.isDebug()) {
             try {
                 return new DecryptHttpInputMessage(inputMessage, encryptProperties.getKey(), encryptProperties.getCharset());
             } catch (Exception e) {

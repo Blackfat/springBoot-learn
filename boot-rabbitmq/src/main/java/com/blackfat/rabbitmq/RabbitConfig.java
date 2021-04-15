@@ -10,11 +10,10 @@ import org.springframework.context.annotation.Configuration;
  * @create 2018/9/19-15:00
  */
 @Configuration
-public class RabbitConfig
-{
+public class RabbitConfig {
 
     @Bean
-    public Queue helloQueue(){
+    public Queue helloQueue() {
         return new Queue("hello");
     }
 }

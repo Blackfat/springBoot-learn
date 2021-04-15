@@ -31,7 +31,7 @@ public class RpcQueue {
         String replyQueue = channel.queueDeclare().getQueue();
         final String correlationId = UUID.randomUUID().toString();
 
-        Consumer consumer = new DefaultConsumer(channel){
+        Consumer consumer = new DefaultConsumer(channel) {
             @Override
             public void handleDelivery(String consumerTag, Envelope envelope, AMQP.BasicProperties properties, byte[] body) throws IOException {
                 if (properties.getCorrelationId().equals(correlationId)) {
@@ -48,7 +48,7 @@ public class RpcQueue {
         String message = "hello rabbitmq";
         AMQP.BasicProperties properties = new AMQP.BasicProperties.Builder().correlationId(correlationId).replyTo(replyQueue).build();
         // 直接发送给队列，不需要指定exchange ,默认为空
-        channel.basicPublish("",rpcQueue,properties,message.getBytes("utf-8"));
+        channel.basicPublish("", rpcQueue, properties, message.getBytes("utf-8"));
         System.out.println("已发出请求请求消息：" + message);
         Thread.sleep(100000);
 
@@ -71,13 +71,13 @@ public class RpcQueue {
         channel.queueDeclare(rpcQueue, false, false, false, null);
         channel.basicQos(1);
 
-        Consumer consumer = new DefaultConsumer(channel){
+        Consumer consumer = new DefaultConsumer(channel) {
             @Override
             public void handleDelivery(String consumerTag, Envelope envelope, AMQP.BasicProperties properties, byte[] body) throws IOException {
                 String message = new String(body, "UTF-8");
                 System.out.println("服务端：已接收到请求消息：" + message);
                 // 服务器端接收到消息并处理消息
-                String response = "{'code': 200, 'data': '" + message+ "'}";
+                String response = "{'code': 200, 'data': '" + message + "'}";
 
                 // 将消息发布到reply_to响应队列中
                 AMQP.BasicProperties replyProperties = new AMQP.BasicProperties.Builder().

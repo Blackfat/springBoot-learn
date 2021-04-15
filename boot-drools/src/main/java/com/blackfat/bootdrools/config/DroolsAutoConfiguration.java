@@ -75,8 +75,9 @@ public class DroolsAutoConfiguration {
     public KModuleBeanFactoryPostProcessor kiePostProcessor() {
         return new KModuleBeanFactoryPostProcessor();
     }
+
     public KieServices getKieServices() {
-        System.setProperty("drools.dateformat","yyyy-MM-dd");
+        System.setProperty("drools.dateformat", "yyyy-MM-dd");
         return KieServices.Factory.get();
     }
 }

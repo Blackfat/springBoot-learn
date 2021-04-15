@@ -6,8 +6,7 @@ import org.springframework.context.support.GenericApplicationContext;
 
 /**
  * @author wangfeiyang
- * @Description
- * 监听自定义事件引导类，通过 {@link GenericApplicationContext#registerBean(Class, BeanDefinitionCustomizer...)} 方法注册
+ * @Description 监听自定义事件引导类，通过 {@link GenericApplicationContext#registerBean(Class, BeanDefinitionCustomizer...)} 方法注册
  * {@link ApplicationListener} Bean
  * @create 2019-06-30 11:13
  * @since 1.0-SNAPSHOT
@@ -36,7 +35,7 @@ public class ApplicationListenerBeanOnCustomEventBootstrap {
         }
     }
 
-    public static class MyApplicationListen implements ApplicationListener<MyApplicationEvent>{
+    public static class MyApplicationListen implements ApplicationListener<MyApplicationEvent> {
 
         @Override
         public void onApplicationEvent(MyApplicationEvent myApplicationEvent) {
@@ -44,7 +43,6 @@ public class ApplicationListenerBeanOnCustomEventBootstrap {
         }
 
     }
-
 
 
 }

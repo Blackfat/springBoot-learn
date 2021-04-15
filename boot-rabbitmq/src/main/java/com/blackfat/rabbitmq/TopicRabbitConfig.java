@@ -20,27 +20,27 @@ public class TopicRabbitConfig {
     final static String message2 = "topic.message2";
 
     @Bean
-    public Queue queueMessage1(){
-        return  new Queue(TopicRabbitConfig.message1);
+    public Queue queueMessage1() {
+        return new Queue(TopicRabbitConfig.message1);
     }
 
     @Bean
-    public Queue queueMessage2(){
-        return  new Queue(TopicRabbitConfig.message2);
+    public Queue queueMessage2() {
+        return new Queue(TopicRabbitConfig.message2);
     }
 
     @Bean
-    TopicExchange exchange(){
+    TopicExchange exchange() {
         return new TopicExchange("exchange");
     }
 
     @Bean
-    Binding bindingMessage1(Queue queueMessage1, TopicExchange exchange){
+    Binding bindingMessage1(Queue queueMessage1, TopicExchange exchange) {
         return BindingBuilder.bind(queueMessage1).to(exchange).with("topic.message");
     }
 
     @Bean
-    Binding bindingMessage2(Queue queueMessage2, TopicExchange exchange){
+    Binding bindingMessage2(Queue queueMessage2, TopicExchange exchange) {
         return BindingBuilder.bind(queueMessage2).to(exchange).with("topic.#");
     }
 

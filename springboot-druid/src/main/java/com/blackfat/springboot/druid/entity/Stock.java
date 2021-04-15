@@ -7,7 +7,7 @@ import java.io.Serializable;
  * @desc
  * @create 2018/10/23-13:43
  */
-public class Stock implements Serializable{
+public class Stock implements Serializable {
     private static final long serialVersionUID = -8437012513227627973L;
     private Integer id;
 

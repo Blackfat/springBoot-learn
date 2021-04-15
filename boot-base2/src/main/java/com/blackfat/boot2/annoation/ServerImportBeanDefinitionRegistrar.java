@@ -27,7 +27,7 @@ public class ServerImportBeanDefinitionRegistrar implements ImportBeanDefinition
                 .map(BeanDefinitionBuilder::genericBeanDefinition)
                 .map(BeanDefinitionBuilder::getBeanDefinition)
                 .forEach(beanDefinition -> {
-                        // 注册 BeanDefinition 到 BeanDefinitionRegistry
+                    // 注册 BeanDefinition 到 BeanDefinitionRegistry
                     BeanDefinitionReaderUtils.registerWithGeneratedName(beanDefinition, beanDefinitionRegistry);
                 });
     }
