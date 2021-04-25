@@ -12,7 +12,7 @@ import org.springframework.context.annotation.Configuration;
  * @since 1.0-SNAPSHOT
  */
 @Configuration
-@EnableServer(type = Server.Type.FTP) // 设置 HTTP 服务器
+@EnableServer(type = Server.Type.HTTP) // 设置 HTTP 服务器
 public class EnableServerBootstrap {
 
     public static void main(String[] args) {
